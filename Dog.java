@@ -1,6 +1,7 @@
 public class Dog extends Pet implements Adoptable {
 
     private final String SPECIES = "Dog";
+    ServiceDogType service = ServiceDogType.None;
 
     public Dog(String name, int age, String breed, int weight, int height) {
         super(name, age, breed, weight, height);
@@ -81,11 +82,21 @@ public class Dog extends Pet implements Adoptable {
         //spaces mean the breed has multiple words and is probably cooler 
         //so $100 increase per space
         double finalPrice = BASE_FEE;
-        double priceAddition = (getBreed().length() * 10) + (countSpaces(getBreed()) * 100);
+
+        double priceAddition = (getBreed().length() * 10) + (countSpaces(getBreed()) * 90);
+
         System.out.println("The dog's breed increases its price by $" + priceAddition + ".");
+        //final calculation
         finalPrice += priceAddition;
         finalPrice *= priceMult;
         finalPrice *= weightMult;
+        //rounding
+        finalPrice = ((double) ((int) (finalPrice * 100)) / 100);
+
+        if(finalPrice < BASE_FEE) {
+            finalPrice = BASE_FEE;
+            System.out.println("This dog is priced at minimum.");
+        }
 
         System.out.println("The dog's final price for adoption is $" + finalPrice + ".");
         return finalPrice;
@@ -101,8 +112,18 @@ public class Dog extends Pet implements Adoptable {
         }
         return count;
     }
-    
 
+    public ServiceDogType getServiceDogType() {
+        return service;
+    }    
+
+    public void setServiceDogType(String type) {
+        service = ServiceDogType.valueOf(type);
+    }
+
+    public void setServiceDogType(int type) {
+        service = ServiceDogType.values()[type];
+    }
 
 
 }
