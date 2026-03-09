@@ -1,16 +1,39 @@
 public class Cat extends Pet implements Adoptable {
-    private final String SPECIES = "Cat";
-    ServiceDogType service = ServiceDogType.None;
 
+    private final String SPECIES = "Cat";
+    boolean goodMouser = false;
+
+    /*Constructor
+    *@param name   the name of the cat
+    *@param age     the age of the cat, in years
+    *@param breed   the breed of the cat
+    *@param weight  how heavy the cat is, in kg
+    *@param height  how tall the cat is, in cm
+    */
     public Cat(String name, int age, String breed, int weight, int height) {
         super(name, age, breed, weight, height);
     }
 
+    //returns the species (cat).
+    //@return SPECIES
     @Override
     public String getSpecies() {
         return SPECIES;
     }
 
+    //returns whether the cat is a good mouser.
+    //@return goodMouser
+    public boolean getGoodMouser() {
+        return goodMouser;
+    }
+
+    //sets the status of goodMouser to true. This cannot be unlearned.
+    public void trainCat() {
+        goodMouser = true;
+    }
+
+    //calculates the price of adopting the cat using its age, height, weight, and breed.
+    //@return finalPrice    the final calculated price to adopt a cat
     @Override
     public double calculateAdoptionFee() {
         //Cats usually cost slightly less than Dogs to adopt, so the price is cheaper (multiplier lower).

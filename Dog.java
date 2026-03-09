@@ -2,16 +2,24 @@ public class Dog extends Pet implements Adoptable {
 
     private final String SPECIES = "Dog";
     ServiceDogType service = ServiceDogType.None;
-
+    
+    /*@param name   the name of the dog
+    *@param age     the age of the dog, in years
+    *@param breed   the breed of the dog
+    *@param weight  how heavy the dog is, in kg
+    *@param height  how tall the dog is, in cm
+    */
     public Dog(String name, int age, String breed, int weight, int height) {
         super(name, age, breed, weight, height);
     }
 
+    //@return SPECIES
     @Override
     public String getSpecies() {
         return SPECIES;
     }
 
+    //@return finalPrice    the calculated final price of adoption
     @Override
     public double calculateAdoptionFee() {
         //adjust price based on age. if age = 0 to 1, charge a set percent less.
@@ -113,14 +121,17 @@ public class Dog extends Pet implements Adoptable {
         return count;
     }
 
+    //@return service
     public ServiceDogType getServiceDogType() {
         return service;
     }    
 
+    //@param type   the new service dog type, given the name
     public void setServiceDogType(String type) {
         service = ServiceDogType.valueOf(type);
     }
 
+    //@param type   the new service dog type, given the index listed in the enum
     public void setServiceDogType(int type) {
         service = ServiceDogType.values()[type];
     }
