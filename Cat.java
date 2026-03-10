@@ -7,11 +7,10 @@ public class Cat extends Pet implements Adoptable {
     *@param name   the name of the cat
     *@param age     the age of the cat, in years
     *@param breed   the breed of the cat
-    *@param weight  how heavy the cat is, in kg
-    *@param height  how tall the cat is, in cm
+    *@param fat  how much percent body fat the cat has. Weight has been repurposed in this class.
     */
-    public Cat(String name, int age, String breed, int weight, int height) {
-        super(name, age, breed, weight, height);
+    public Cat(String name, int age, String breed, int fat) {
+        super(name, age, breed, fat);
     }
 
     //returns the species (cat).
@@ -28,8 +27,12 @@ public class Cat extends Pet implements Adoptable {
     }
 
     //sets the status of goodMouser to true. This cannot be unlearned.
+    //The cat's fat must be in the perfectly healthy range
     public void trainCat() {
-        goodMouser = true;
+        if (getWeight() >= 16 && getWeight() <= 24)
+            goodMouser = true;
+        else 
+            System.out.println("This cat does not have a healthy body fat, and cannot become a mouser!");
     }
 
     //calculates the price of adopting the cat using its age, height, weight, and breed.
@@ -46,7 +49,7 @@ public class Cat extends Pet implements Adoptable {
             priceMult = 0.2;
             System.out.println("This is a young cat.");
         } else if (getAge() <= 38) {
-            priceMult = 1.0 - (0.05 * ((double) getAge() - 1.0));
+            priceMult = 1.0 - (0.025 * ((double) getAge() - 1.0));
             System.out.println("This is an adult cat.");
         } else {
             priceMult = 50;
@@ -61,47 +64,39 @@ public class Cat extends Pet implements Adoptable {
 
 
         double weightMult;
-        //adjust price based on weight. 
-        //we assume weight is in kg, and height is in cm.
-        //The basic formula is (Weight in kg / 0.45) / (Height in cm / 2.54) = BMI.
-        //Cat BMI should generally be less than 1.5 for most species, and above 0.75 
-        //    -> boundry increased to 1.75 for leniency
-        //The cat is still growing from ages 0-2 so we only check for bmi > 1.75
-        //As the cat ages BMI naturally decreases after age 10! This is from muscle loss and illnesses.
-        //This means BMI restriction will decrease minorly after age 10.
-
-        double BMI = (getWeight() / 0.45) / (getHeight() / 2.54);
-
-        System.out.println("The cat has a BMI of " + BMI + ".");
-        if (BMI < 0.75) {
-            if (getAge() > 2) {
-                //linearly decrease price to 0
-                weightMult = 1 - (((double) 4 / 3) * (0.75 - BMI));
-                System.out.println("This cat is underweight.");
-            } else {
-                //perfectly healthy
-                weightMult = 1.5;
-                System.out.println("This cat is perfectly healthy.");
-            }
-        } else if (BMI > 1.75 && getAge() <= 10) {
-            //reduce price by 40% for each BMI above 1.75
-            weightMult = 1 - ((BMI - 1.75) * 0.4);
-            System.out.println("This cat is overweight.");
-        } else if (BMI > (1.75 - ((double) (getAge() - 10) * 0.02))) {
-            //reduce price by 35% for each BMI above dynamic threshold
-            weightMult = 1 - ((BMI - (1.75 - ((double) (getAge() - 10) * 0.02))) * 0.35);
-            System.out.println("This cat is overweight.");
-        } else {
-            //perfectly healthy
+        //adjust price based on body fat
+        //ideal body fat range is 15-24%, however 10-30% is still acceptable.
+        
+        //if age is 1 or less, then body fat does not contribute and the cat is healthy.
+        if (getAge() < 2) {
+            System.out.println("this cat is perfectly healthy!");
             weightMult = 1.5;
-            System.out.println("This cat is perfectly healthy.");
+        }
+        else if (getWeight() >= 15 && getWeight() <= 24) {
+            System.out.println("this cat is perfectly healthy!");
+            weightMult = 1.5;
+        }
+        else if (getWeight() >= 10 && getWeight() <= 30) {
+            System.out.println("this cat is healthy.");
+            weightMult = 1;
+        }
+        //linearly decrease price when fat % is less than 10
+        else if (getWeight() < 10) {
+            System.out.println("this cat is underweight.");
+            weightMult = (0.1 * getWeight());
+        }
+        //linearly decrease price by 10% per percent when fat % is greater than 30
+        else {
+            System.out.println("this cat is overweight.");
+            weightMult = 1 - (0.1 * (getWeight() - 30));
         }
 
         if (weightMult < 0) {
-                weightMult = 0;
+            weightMult = 0;
         }
+        
 
-        System.out.println("Their price multiplier at this BMI is " + weightMult + ".");
+        System.out.println("Their price multiplier at this body fat is " + weightMult + ".");
 
         //adjust price by breed
         //Same as dogs, I could insert a long dictionary for each value of cat breed

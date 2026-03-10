@@ -6,22 +6,19 @@ public abstract class Pet {
     private int age;
     private String breed;
     private int weight;
-    private int height;
 
     /*Constructor
     *@param name   the name of the pet
     *@param age     the age of the pet, in years
     *@param breed   the breed of the pet
     *@param weight  how heavy the pet is, in kg
-    *@param height  how tall the pet is, in cm
     */
-    public Pet(String name, int age, String breed, int weight, int height) {
+    public Pet(String name, int age, String breed, int weight) {
         totalPets++;
         this.name = name;
         this.age = age;
         this.breed = breed;
         this.weight = weight;
-        this.height = height;
     }
 
     abstract String getSpecies();
@@ -82,17 +79,4 @@ public abstract class Pet {
     public void setWeight(int newWeight) {
         weight = newWeight;
     }
-
-    //returns the height of the pet, in cm
-    //@return height
-    public int getHeight() {
-        return height;
-    }
-    
-    //sets the new height, in cm, of the pet
-    //@param newHeight
-    public void setHeight(int newHeight) {
-        height = newHeight;
-    }
-
 }

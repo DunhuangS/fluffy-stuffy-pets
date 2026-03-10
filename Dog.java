@@ -1,7 +1,8 @@
 public class Dog extends Pet implements Adoptable {
 
     private final String SPECIES = "Dog";
-    ServiceDogType service = ServiceDogType.None;
+    private ServiceDogType service = ServiceDogType.None;
+    private int height;
     
     /*@param name   the name of the dog
     *@param age     the age of the dog, in years
@@ -10,7 +11,8 @@ public class Dog extends Pet implements Adoptable {
     *@param height  how tall the dog is, in cm
     */
     public Dog(String name, int age, String breed, int weight, int height) {
-        super(name, age, breed, weight, height);
+        super(name, age, breed, weight);
+        this.height = height;
     }
 
     //@return SPECIES
@@ -40,7 +42,8 @@ public class Dog extends Pet implements Adoptable {
             System.out.println("This is the oldest dog in the world.");
         }
 
-        priceMult *= 2;
+        //price amplifier for dogs
+        priceMult *= 1.5;
 
         System.out.println("Their price multiplier at this age is " + priceMult + ".");
 
@@ -79,6 +82,13 @@ public class Dog extends Pet implements Adoptable {
             //perfectly healthy
             weightMult = 1.5;
             System.out.println("This dog is perfectly healthy.");
+        }
+
+        //price amplifier for dogs
+        weightMult *= 1.5;
+
+        if (priceMult < 0) {
+                priceMult = 0;
         }
 
         System.out.println("Their price multiplier at this BMI is " + weightMult + ".");
@@ -121,20 +131,36 @@ public class Dog extends Pet implements Adoptable {
         return count;
     }
 
+    //returns the service dog type
     //@return service
     public ServiceDogType getServiceDogType() {
         return service;
     }    
 
+    //sets the service dog type
     //@param type   the new service dog type, given the name
     public void setServiceDogType(String type) {
         service = ServiceDogType.valueOf(type);
     }
 
+    //sets the service dog type
     //@param type   the new service dog type, given the index listed in the enum
     public void setServiceDogType(int type) {
         service = ServiceDogType.values()[type];
     }
+
+    //returns the height of the pet, in cm
+    //@return height
+    public int getHeight() {
+        return height;
+    }
+    
+    //sets the new height, in cm, of the pet
+    //@param newHeight
+    public void setHeight(int newHeight) {
+        height = newHeight;
+    }
+
 
 
 }
