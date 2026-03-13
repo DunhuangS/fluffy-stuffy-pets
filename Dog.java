@@ -27,6 +27,10 @@ public class Dog extends Pet implements Adoptable {
         //adjust price based on age. if age = 0 to 1, charge a set percent less.
         //Otherwise, charge less based on age (until age 21 = $0)
         //if age is > 31, it is a world record holding dog and its price is significantly increased.
+
+        System.out.println("------------------------------------------------");
+        System.out.println("Examining dog " + getName() + ":");
+
         double priceMult;
         if (getAge() <= 1) {
             priceMult = 0.2;
@@ -45,25 +49,28 @@ public class Dog extends Pet implements Adoptable {
         //price amplifier for dogs
         priceMult *= 1.5;
 
-        System.out.println("Their price multiplier at this age is " + priceMult + ".");
+        System.out.println("Their price multiplier at this age is " + ((double) Math.round(priceMult * 100) / 100) + ".");
 
         double weightMult;
         //adjust price based on weight. 
         //we assume weight is in kg, and height is in cm.
         //The basic formula is (Weight in kg / 0.45) / (Height in cm / 2.54) = BMI.
+        //UPDATE!!!! <- The DOG BMI seems to be (Weight in kg / height in cm) * 2.23
         //Dog BMI should generally be less than 3 for most species, and above 1
         //    -> upper boundry increased to 3.5 for leniency
         //The dog is still growing from ages 0-1 so we only check for bmi > 3.5
         //As the dog ages BMI naturally increases
         //for each year past age 10 upper bound lenience increases by 0.05
 
-        double BMI = (getWeight() / 0.45) / (getHeight() / 2.54);
+        //double BMI = (getWeight() / 0.45) / (getHeight() / 2.54);
 
-        System.out.println("The dog has a BMI of " + BMI + ".");
+        double BMI = ((double) getWeight() / getHeight()) * 2.23;
+
+        System.out.println("The dog has a BMI of " + (double) Math.round(BMI * 100) / 100 + ".");
         if (BMI < 1) {
             if (getAge() >= 2) {
                 //linearly decrease price to 0
-                weightMult = (1 - BMI);
+                weightMult = (BMI);
                 System.out.println("This dog is underweight.");
             } else {
                 //perfectly healthy
@@ -91,7 +98,7 @@ public class Dog extends Pet implements Adoptable {
                 priceMult = 0;
         }
 
-        System.out.println("Their price multiplier at this BMI is " + weightMult + ".");
+        System.out.println("Their price multiplier at this BMI is " + (double) Math.round(weightMult * 100) / 100 + ".");
 
         //adjust price by breed
         //I could insert a long dictionary for each value of dog breed
@@ -103,6 +110,7 @@ public class Dog extends Pet implements Adoptable {
 
         double priceAddition = (getBreed().length() * 10) + (countSpaces(getBreed()) * 90);
 
+        System.out.println("The dog's breed is " + getBreed() + ".");
         System.out.println("The dog's breed increases its price by $" + priceAddition + ".");
         //final calculation
         finalPrice += priceAddition;
@@ -117,6 +125,7 @@ public class Dog extends Pet implements Adoptable {
         }
 
         System.out.println("The dog's final price for adoption is $" + finalPrice + ".");
+        System.out.println("------------------------------------------------");
         return finalPrice;
 
     }

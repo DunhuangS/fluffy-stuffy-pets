@@ -39,6 +39,10 @@ public class Cat extends Pet implements Adoptable {
     //@return finalPrice    the final calculated price to adopt a cat
     @Override
     public double calculateAdoptionFee() {
+        
+        System.out.println("------------------------------------------------");
+        System.out.println("Examining cat " + getName() + ":");
+        
         //Cats usually cost slightly less than Dogs to adopt, so the price is cheaper (multiplier lower).
 
         //adjust price based on age. if age = 0 to 1, charge a set percent less.
@@ -59,7 +63,7 @@ public class Cat extends Pet implements Adoptable {
         if (priceMult < 0) {
                 priceMult = 0;
         }
-        System.out.println("Their price multiplier at this age is " + priceMult + ".");
+        System.out.println("Their price multiplier at this age is " + ((double) Math.round(priceMult * 100) / 100) + ".");
         
 
 
@@ -96,7 +100,7 @@ public class Cat extends Pet implements Adoptable {
         }
         
 
-        System.out.println("Their price multiplier at this body fat is " + weightMult + ".");
+        System.out.println("Their price multiplier at this body fat is " + ((double) Math.round(weightMult * 100) / 100) + ".");
 
         //adjust price by breed
         //Same as dogs, I could insert a long dictionary for each value of cat breed
@@ -108,6 +112,7 @@ public class Cat extends Pet implements Adoptable {
 
         double priceAddition = (getBreed().length() * 5) + (countSpaces(getBreed()) * 30);
 
+        System.out.println("The cat's breed is " + getBreed() + ".");
         System.out.println("The cat's breed increases its price by $" + priceAddition + ".");
         //final calculation
         finalPrice += priceAddition;
@@ -122,6 +127,7 @@ public class Cat extends Pet implements Adoptable {
         }
 
         System.out.println("The cat's final price for adoption is $" + finalPrice + ".");
+        System.out.println("------------------------------------------------");
         return finalPrice;
 
     }
