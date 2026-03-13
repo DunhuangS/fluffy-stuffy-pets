@@ -35,7 +35,7 @@ public class Cat extends Pet implements Adoptable {
             System.out.println("This cat does not have a healthy body fat, and cannot become a mouser!");
     }
 
-    //calculates the price of adopting the cat using its age, height, weight, and breed.
+    //calculates the price of adopting the cat using its age, height, weight, mousing status, and breed.
     //@return finalPrice    the final calculated price to adopt a cat
     @Override
     public double calculateAdoptionFee() {

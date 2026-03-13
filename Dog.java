@@ -21,13 +21,14 @@ public class Dog extends Pet implements Adoptable {
         return SPECIES;
     }
 
+    //calculates the adoption price for a Dog using breed, height, weight, age, and service status
     //@return finalPrice    the calculated final price of adoption
     @Override
     public double calculateAdoptionFee() {
 
         System.out.println("------------------------------------------------");
         System.out.println("Examining dog " + getName() + ":");
-        
+
         //adjust price by breed
         //I could insert a long dictionary for each value of dog breed
         //but that would be boring and a waste of time
