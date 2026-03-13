@@ -71,27 +71,28 @@ public class Cat extends Pet implements Adoptable {
         //adjust price based on body fat
         //ideal body fat range is 15-24%, however 10-30% is still acceptable.
         
+        System.out.println("This cat has a body fat of " + getWeight() + "%.");
         //if age is 1 or less, then body fat does not contribute and the cat is healthy.
         if (getAge() < 2) {
-            System.out.println("this cat is perfectly healthy!");
+            System.out.println("This cat is perfectly healthy!");
             weightMult = 1.5;
         }
         else if (getWeight() >= 15 && getWeight() <= 24) {
-            System.out.println("this cat is perfectly healthy!");
+            System.out.println("This cat is perfectly healthy!");
             weightMult = 1.5;
         }
         else if (getWeight() >= 10 && getWeight() <= 30) {
-            System.out.println("this cat is healthy.");
+            System.out.println("This cat is healthy.");
             weightMult = 1;
         }
         //linearly decrease price when fat % is less than 10
         else if (getWeight() < 10) {
-            System.out.println("this cat is underweight.");
+            System.out.println("This cat is underweight.");
             weightMult = (0.1 * getWeight());
         }
         //linearly decrease price by 10% per percent when fat % is greater than 30
         else {
-            System.out.println("this cat is overweight.");
+            System.out.println("This cat is overweight.");
             weightMult = 1 - (0.1 * (getWeight() - 30));
         }
 
