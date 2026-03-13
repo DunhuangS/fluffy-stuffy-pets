@@ -5,7 +5,7 @@ public class Main {
         Dog myDog = new Dog("Rufus", 9, "MyBreed", 32, 59);
         System.out.println(myDog.calculateAdoptionFee());
         
-        System.out.println(Pet.getTotalPets());
+        System.out.println("Total pets created: " + Pet.getTotalPets());
 
         Dog dog2 = new Dog("Ruffles", 1,"T H E   E X P E N S I V E", 2, 42);
         System.out.println(dog2.calculateAdoptionFee());
@@ -29,7 +29,7 @@ public class Main {
         Cat cat2 = new Cat("Amber", 3, "Other Breed", 34);
         System.out.println(cat2.calculateAdoptionFee());
 
-        System.out.println(Pet.getTotalPets());
+        System.out.println("Total pets created: " + Pet.getTotalPets());
 
         //mousing and service dogs
         myCatty.trainCat();
@@ -52,6 +52,17 @@ public class Main {
         //sets the service using index
         myDog.setServiceDogType(8);
         System.out.println("myDog's newer service dog type: " + myDog.getServiceDogType());
+
+
+        //pricing after mousing and service
+        myDog.calculateAdoptionFee();
+        cat2.calculateAdoptionFee();
+
+        //special cases
+        dog2.setAge(40); // <- oldest dog
+        dog2.calculateAdoptionFee();
+        cat2.setAge(50); // <- oldest cat
+        cat2.calculateAdoptionFee();
 
 
     }

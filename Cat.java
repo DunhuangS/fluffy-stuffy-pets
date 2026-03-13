@@ -120,6 +120,11 @@ public class Cat extends Pet implements Adoptable {
         finalPrice += priceAddition;
         finalPrice *= priceMult;
         finalPrice *= weightMult;
+        if(goodMouser) {
+            finalPrice *= 1.5;
+            System.out.println("This cat has been trained as a good mouser, which multiplies its price by 1.5!");
+        }
+
         //rounding
         finalPrice = ((double) ((int) (finalPrice * 100)) / 100);
 

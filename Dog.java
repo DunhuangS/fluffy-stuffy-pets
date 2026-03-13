@@ -25,6 +25,9 @@ public class Dog extends Pet implements Adoptable {
     @Override
     public double calculateAdoptionFee() {
 
+        System.out.println("------------------------------------------------");
+        System.out.println("Examining dog " + getName() + ":");
+        
         //adjust price by breed
         //I could insert a long dictionary for each value of dog breed
         //but that would be boring and a waste of time
@@ -37,13 +40,10 @@ public class Dog extends Pet implements Adoptable {
 
         System.out.println("The dog's breed is " + getBreed() + ".");
         System.out.println("The dog's breed increases its price by $" + priceAddition + ".");
-        
+
         //adjust price based on age. if age = 0 to 1, charge a set percent less.
         //Otherwise, charge less based on age (until age 21 = $0)
         //if age is > 31, it is a world record holding dog and its price is significantly increased.
-
-        System.out.println("------------------------------------------------");
-        System.out.println("Examining dog " + getName() + ":");
 
         double priceMult;
         if (getAge() <= 1) {
@@ -118,6 +118,11 @@ public class Dog extends Pet implements Adoptable {
         finalPrice += priceAddition;
         finalPrice *= priceMult;
         finalPrice *= weightMult;
+        if (service != ServiceDogType.None) {
+            finalPrice *= 2;
+            System.out.println("This is a service dog, which multiplies its price by 2!");
+        }
+
         //rounding
         finalPrice = ((double) ((int) (finalPrice * 100)) / 100);
 
