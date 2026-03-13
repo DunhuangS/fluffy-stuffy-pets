@@ -42,6 +42,19 @@ public class Cat extends Pet implements Adoptable {
         
         System.out.println("------------------------------------------------");
         System.out.println("Examining cat " + getName() + ":");
+
+        //adjust price by breed
+        //Same as dogs, I could insert a long dictionary for each value of cat breed
+        //but that would be boring and a waste of time
+        //so instead I will change price by $5 for each character in the breed name
+        //spaces mean the breed has multiple words and is probably cooler 
+        //so $35 increase per space <- again, cats are cheaper than dogs in general
+        double finalPrice = BASE_FEE;
+
+        double priceAddition = (getBreed().length() * 5) + (countSpaces(getBreed()) * 30);
+
+        System.out.println("The cat's breed is " + getBreed() + ".");
+        System.out.println("The cat's breed increases its price by $" + priceAddition + ".");
         
         //Cats usually cost slightly less than Dogs to adopt, so the price is cheaper (multiplier lower).
 
@@ -103,18 +116,6 @@ public class Cat extends Pet implements Adoptable {
 
         System.out.println("Their price multiplier at this body fat is " + ((double) Math.round(weightMult * 100) / 100) + ".");
 
-        //adjust price by breed
-        //Same as dogs, I could insert a long dictionary for each value of cat breed
-        //but that would be boring and a waste of time
-        //so instead I will change price by $5 for each character in the breed name
-        //spaces mean the breed has multiple words and is probably cooler 
-        //so $35 increase per space <- again, cats are cheaper than dogs in general
-        double finalPrice = BASE_FEE;
-
-        double priceAddition = (getBreed().length() * 5) + (countSpaces(getBreed()) * 30);
-
-        System.out.println("The cat's breed is " + getBreed() + ".");
-        System.out.println("The cat's breed increases its price by $" + priceAddition + ".");
         //final calculation
         finalPrice += priceAddition;
         finalPrice *= priceMult;

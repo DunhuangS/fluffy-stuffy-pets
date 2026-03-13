@@ -24,6 +24,20 @@ public class Dog extends Pet implements Adoptable {
     //@return finalPrice    the calculated final price of adoption
     @Override
     public double calculateAdoptionFee() {
+
+        //adjust price by breed
+        //I could insert a long dictionary for each value of dog breed
+        //but that would be boring and a waste of time
+        //so instead I will change price by $10 for each character in the breed name
+        //spaces mean the breed has multiple words and is probably cooler 
+        //so $100 increase per space
+        double finalPrice = BASE_FEE;
+
+        double priceAddition = (getBreed().length() * 10) + (countSpaces(getBreed()) * 90);
+
+        System.out.println("The dog's breed is " + getBreed() + ".");
+        System.out.println("The dog's breed increases its price by $" + priceAddition + ".");
+        
         //adjust price based on age. if age = 0 to 1, charge a set percent less.
         //Otherwise, charge less based on age (until age 21 = $0)
         //if age is > 31, it is a world record holding dog and its price is significantly increased.
@@ -100,18 +114,6 @@ public class Dog extends Pet implements Adoptable {
 
         System.out.println("Their price multiplier at this BMI is " + (double) Math.round(weightMult * 100) / 100 + ".");
 
-        //adjust price by breed
-        //I could insert a long dictionary for each value of dog breed
-        //but that would be boring and a waste of time
-        //so instead I will change price by $10 for each character in the breed name
-        //spaces mean the breed has multiple words and is probably cooler 
-        //so $100 increase per space
-        double finalPrice = BASE_FEE;
-
-        double priceAddition = (getBreed().length() * 10) + (countSpaces(getBreed()) * 90);
-
-        System.out.println("The dog's breed is " + getBreed() + ".");
-        System.out.println("The dog's breed increases its price by $" + priceAddition + ".");
         //final calculation
         finalPrice += priceAddition;
         finalPrice *= priceMult;
