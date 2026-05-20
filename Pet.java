@@ -1,4 +1,6 @@
-public abstract class Pet {
+import java.io.Serializable;
+
+public abstract class Pet implements Serializable {
 
     private static int totalPets = 0;
 

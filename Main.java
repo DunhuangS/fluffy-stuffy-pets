@@ -1,6 +1,9 @@
+import java.io.*;
+
 public class Main {
     
     public static void main(String[] args) {
+
         //dogs
         Dog myDog = new Dog("Rufus", 9, "MyBreed", 32, 59);
         System.out.println(myDog.calculateAdoptionFee());
@@ -64,6 +67,58 @@ public class Main {
         cat2.setAge(50); // <- oldest cat
         cat2.calculateAdoptionFee();
 
+        Pet[] PetList = {myDog, dog2, myCatty, cat2};
+
+        try {
+            FileOutputStream temp = new FileOutputStream("data.dat");
+            ObjectOutputStream output = new ObjectOutputStream(temp);
+            for (Pet toSave : PetList) {
+                output.writeObject(toSave);
+            }
+            output.close();
+            temp.close();
+
+        } catch (FileNotFoundException e) {
+            System.err.println("The file seems to not be found (which is weird because I'm making it)");
+            System.err.println(e);
+        } catch (IOException e){
+            System.err.println("Something went wrong with the ObjectOutput");
+            System.err.println(e);
+        }
+
+        try {
+            FileInputStream temp2 = new FileInputStream("data.dat");
+            ObjectInputStream input = new ObjectInputStream(temp2);
+            
+            try {
+                System.out.println("Reading Saved Pets:");
+                while (true) {
+                    Pet readPet = (Pet) input.readObject();
+                    System.out.println("This pet is a " + readPet.getSpecies());
+                    System.out.println("Its name is " + readPet.getName());
+                    System.out.println("Its age is " + readPet.getAge());
+                    System.out.println("Its breed is " + readPet.getBreed());
+                    System.out.println("Its weight is " + readPet.getWeight());
+                    System.out.println();
+
+                }
+            } catch (EOFException e) {
+                //nothing happens, tells when the file ends.
+            }
+
+            temp2.close();
+            input.close();
+
+        } catch (FileNotFoundException e) {
+            System.err.println("The file doesn't exist where it's supposed to exist");
+            System.err.println(e);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Bad class");
+            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println("Something went wrong with the ObjectInput");
+            System.err.println(e);
+        }
 
     }
 }
