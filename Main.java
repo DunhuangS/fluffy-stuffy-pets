@@ -67,6 +67,7 @@ public class Main {
         cat2.setAge(50); // <- oldest cat
         cat2.calculateAdoptionFee();
 
+        //file Output
         Pet[] PetList = {myDog, dog2, myCatty, cat2};
 
         try {
@@ -86,6 +87,8 @@ public class Main {
             System.err.println(e);
         }
 
+
+        //File Input
         try {
             FileInputStream temp2 = new FileInputStream("data.dat");
             ObjectInputStream input = new ObjectInputStream(temp2);
